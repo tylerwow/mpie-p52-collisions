@@ -4,18 +4,6 @@ using UnityEngine;
 
 public class AmmoBox : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public bool GetActive() {
         GameObject parent = transform.parent.gameObject;
         return parent.activeInHierarchy;
@@ -23,6 +11,10 @@ public class AmmoBox : MonoBehaviour
 
     void OnTriggerEnter(Collider other) {
         GameObject parent = transform.parent.gameObject;
+        
+        AudioSource reload = parent.GetComponent<AudioSource>();
+        reload.Play();
+        
         parent.SetActive(false);
     }
 }
