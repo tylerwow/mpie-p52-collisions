@@ -11,10 +11,12 @@ public class Gun : MonoBehaviour
 
     public Bridge bridge;
 
-    bool hasAmmo = false;
+    public bool hasAmmo = false;
 
-    // Update is called once per frame
-    void Update()
+    public AudioClip noAmmo;
+    public AudioClip gunShot;
+
+    void FixedUpdate()
     {
         if (!ammoBox.GetActive() && !hasAmmo) {
             ammo = 20;
@@ -22,15 +24,18 @@ public class Gun : MonoBehaviour
         }
 
         if (ammo == 0 && Input.GetButtonDown("Fire1")) {
-            AudioSource noAmmo = GetComponent<AudioSource>();
-            noAmmo.Play();
+            AudioSource audio = GetComponent<AudioSource>();
+            audio.clip = noAmmo;
+            audio.Play();
         }
 
         if (ammo > 0 && Input.GetButtonDown("Fire1")) {
-
-            
             Ray ray =  Camera.main.ViewportPointToRay(new Vector3(0.5f ,0.5f ,0.0f));
             ammo--;
+
+            AudioSource audio = GetComponent<AudioSource>();
+            audio.clip = gunShot;
+            audio.Play();
 
             RaycastHit result;
 
